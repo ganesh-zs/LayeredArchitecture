@@ -4,7 +4,6 @@ import (
 	"LayeredArchitecture/models"
 	"database/sql"
 	"errors"
-	"log"
 )
 
 type store struct {
@@ -16,14 +15,7 @@ func New(db *sql.DB) store {
 }
 
 func (d store) ReadAuthor(id int) (models.Author, error) {
-	var response models.Author
-	row := d.db.QueryRow("SELECT * from Authors where id=?", id)
-	err := row.Scan(&response.Id, &response.FirstName, &response.LastName, &response.PenName, &response.DateOfBirth, &response.Genre)
-	if err != nil {
-		log.Fatal(err)
-		return response, errors.New("Entity doesnt exist")
-	}
-	return response, nil
+	return models.Author{}, nil
 }
 
 type MockStore struct {

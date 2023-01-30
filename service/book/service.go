@@ -15,16 +15,16 @@ func New(s book.Store) service {
 	return service{store: s}
 }
 
+func (s service) Create(b models.Book) (models.Book, error) {
+	return s.store.Create(b)
+}
+
 func (s service) ReadBook(id int) (models.Book, error) {
 	return s.store.ReadBook(id)
 }
 
 func (s service) GetAll(isbn int, title string, includeAuthor bool) ([]models.Book, error) {
-	return []models.Book{}, nil
-}
-
-func (s service) Create(b models.Book) (models.Book, error) {
-	return models.Book{}, nil
+	return s.store.GetAll(isbn, title, includeAuthor)
 }
 
 type Mockservice struct {

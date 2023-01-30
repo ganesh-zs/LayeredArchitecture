@@ -3,7 +3,6 @@ package author
 import (
 	service "LayeredArchitecture/service/author"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"reflect"
 	"strconv"
@@ -19,7 +18,6 @@ func New(s service.Service) handler {
 }
 
 func (h handler) ReadAuthor(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Hello")
 	if reflect.DeepEqual(r.Method, http.MethodGet) {
 		i := strings.Split(r.URL.Path, "/")
 		id, err := strconv.Atoi(i[len(i)-1])
