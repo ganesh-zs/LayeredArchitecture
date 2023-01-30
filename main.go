@@ -1,14 +1,17 @@
 package main
 
 import (
-	authorhandler "LayeredArchitecture/handler/author"
-	authorservice "LayeredArchitecture/service/author"
-	authorstore "LayeredArchitecture/store/author"
+	bookhandler "LayeredArchitecture/handler/book"
+	bookservice "LayeredArchitecture/service/book"
+	"github.com/gorilla/mux"
+	"log"
+	//authorhandler "LayeredArchitecture/handler/author"
+	//authorservice "LayeredArchitecture/service/author"
+	//authorstore "LayeredArchitecture/store/author"
 	"net/http"
 )
 
 func main() {
-	// get the mysql configs from env:
 	//conf := driver.MySQLConfig{
 	//	Host:     os.Getenv("localhost"),
 	//	User:     os.Getenv("root"),
@@ -22,9 +25,23 @@ func main() {
 	//	return
 	//}
 	//authorStore := authorstore.New(db)
-	authorStore := authorstore.MockStore{}
-	authorService := authorservice.New(authorStore)
-	authorHandler := authorhandler.New(authorService)
-	http.HandleFunc("/author/{id}", authorHandler.GetByID)
-	http.ListenAndServe(":8000", nil)
+
+	//Get author by id
+	//authorStore := authorstore.MockStore{}
+	//authorService := authorservice.New(authorStore)
+	//authorHandler := authorhandler.New(authorService)
+
+	//Get all books
+	//bookService := bookservice.Mockservice{}
+	//bookHandler := bookhandler.New(bookService)
+
+	bookService := bookservice.Mockservice{}
+	bookHandler := bookhandler.New(bookService)
+
+	r := mux.NewRouter()
+	//r.HandleFunc("/books", handlers.ReadBooks).Methods("GET")
+	//r.HandleFunc("/books/{id}", bookHandler.ReadBook).Methods("GET")
+	r.HandleFunc("/books", bookHandler.CreateBook).Methods("POST")
+	log.Fatal(http.ListenAndServe(":8000", r))
+
 }

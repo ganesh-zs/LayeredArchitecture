@@ -1,7 +1,7 @@
-package service
+package author
 
 import "LayeredArchitecture/models"
 
 type Service interface {
-	GetByID(id int) (models.Author, error)
+	ReadAuthor(id int) (models.Author, error)
 }

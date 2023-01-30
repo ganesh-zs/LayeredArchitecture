@@ -1,7 +1,7 @@
-package store
+package book
 
 import "LayeredArchitecture/models"
 
 type Store interface {
-	GetByID(id int) (models.Author, error)
+	ReadBook(id int) (models.Book, error)
 }
